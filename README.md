@@ -119,6 +119,13 @@ Some users have also reported successful results using GPU Transcoding in Immich
 One thing to note is that we need to install the GPU drivers on the LXC as well for the passthrough transcoding to work. Instructions HERE --> https://www.reddit.com/r/Proxmox/comments/1b36sba/intel_13th_igpu_passtrough_to_jellyfin_lxc/ 
 But in short, the driver to install is intel-opencl-icd. So install vainfo, clinfo and intel-opencl-icd
 
+ALSO, remember to add the user immich to video, render and input group using
+```bash
+sudo usermod -aG video immich
+sudo usermod -aG render immich
+sudo usermod -aG input immich
+```
+
 
 Good luck and have fun!
 
