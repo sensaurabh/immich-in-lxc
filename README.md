@@ -116,6 +116,10 @@ Since Immich depends on ONNX runtime, it is **possible** that other hardware tha
 
 Some users have also reported successful results using GPU Transcoding in Immich by following the Proxmox configurations from this video: [iGPU Transcoding In Proxmox with Jellyfin Media Center](https://www.youtube.com/watch?v=XAa_qpNmzZs) - Just avoid all the Jellyfin stuff and do the configurations on the Immich container instead. At the end, you should be able to use your iGPU Transcoding in Immich by going to needs to go to `Administration > Settings > Video Transcoding Settings > Hardware Acceleration > Acceleration API` and select `Quick Sync` to explicitly use the GPU to do the transcoding.
 
+One thing to note is that we need to install the GPU drivers on the LXC as well for the passthrough transcoding to work. Instructions HERE --> https://www.reddit.com/r/Proxmox/comments/1b36sba/intel_13th_igpu_passtrough_to_jellyfin_lxc/ 
+But in short, the driver to install is intel-opencl-icd. So install vainfo, clinfo and intel-opencl-icd
+
+
 Good luck and have fun!
 
 ## Install utilities and databases
@@ -128,7 +132,7 @@ As for postgresql, visit [official guide](https://www.postgresql.org/download/li
 apt install -y postgresql-common
 /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh
 apt -y install postgresql
-apt install postgresql-16-pgvector
+apt install postgresql-17-pgvector
 ```
 
 To prepare the database, we need to make some configuration.
