@@ -125,7 +125,7 @@ sudo usermod -aG video immich
 sudo usermod -aG render immich
 sudo usermod -aG input immich
 ```
-
+OR CHECK the owner group for ```bash /dev/dri/*``` and ADD `immich` user to that group...
 
 Good luck and have fun!
 
@@ -441,6 +441,19 @@ The post install script will copy the systemd service files to proper location (
 ```bash
 ./post-install.sh
 ```
+
+ssen - Now to enable ml logging, you need to move the log_conf.json to `/home/immich/app/machine-learning` folder. This can be found on `/home/immich/source/machine-learning` directory.
+TO ENABLE OPENVINO HW ACCELERATION FOR MACHINE-LEARNING TASKS, you will need to install `onnxruntime-openvino` python package... as well as OpenCL drivers for your HOST and GUEST machines.
+```bash
+#Search for installing intel opencl on linuix, debian 12, then
+cd /home/immich/app/machine-learning
+source ./venv/bin/activate
+pip install onnxruntime-openvino
+
+```
+Now you can start the services.
+
+PLEASE CHECK IF GPU has been passed through by running `clinfo` and `vainfo`.
 
 Then, modify the `service` files to make sure every path name is spelled correctly. You might need to modify the variables `WorkingDirectory`, `EnvironmentFile`, `ExecStart` with the `INSTALL_DIR` specified in the `.env` file (in case you didn't leave the default INSTALL_DIR).
 
